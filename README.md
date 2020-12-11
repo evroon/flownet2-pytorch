@@ -15,8 +15,8 @@ First, install [nvidia-docker](https://github.com/NVIDIA/nvidia-docker). Unfortu
 
 Download the [MPI-Sintel dataset](http://files.is.tue.mpg.de/sintel/MPI-Sintel-complete.zip) and tstore he checkpoints of FlowNet2 [FlowNet2_checkpoint.pth.tar](https://drive.google.com/file/d/1hF8vS6YeHkx3j2pfCeQqqZGwA_PJq_Da/view?usp=sharing) in a directory called `flownet2-checkpoints`. Then, set the paths to the MPI-Sintel dataset and the checkpoints of FlowNet2. The simplest way is by adding these two lines to the `.bashrc` in your home directory:
 
-  export MPI_SINTEL_DIR="/path/to/datasets/mpi-sintel"
-  export FLOWNET2_CHECKPOINTS_DIR="/path/to/flownet2-checkpoints"
+    export MPI_SINTEL_DIR="/path/to/datasets/mpi-sintel"
+    export FLOWNET2_CHECKPOINTS_DIR="/path/to/flownet2-checkpoints"
 
 Now, use the following commands:
 
@@ -26,7 +26,7 @@ Now, use the following commands:
 
 Now, inside the shell of the new docker container, run:
     
-    install.sh
+    ./install.sh
     scripts/run.sh
 
 Now the resulting mp4 can be found in: `$MPI_SINTEL_DIR/output/color_coding/output.mp4`.
