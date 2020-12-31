@@ -1,35 +1,38 @@
-# flownet2-pytorch 
+# flownet2-pytorch
 
-Pytorch implementation of [FlowNet 2.0: Evolution of Optical Flow Estimation with Deep Networks](https://arxiv.org/abs/1612.01925). 
+Pytorch implementation of [FlowNet 2.0: Evolution of Optical Flow Estimation with Deep Networks](https://arxiv.org/abs/1612.01925).
 
 Multiple GPU training is supported, and the code provides examples for training or inference on [MPI-Sintel](http://sintel.is.tue.mpg.de/) clean and final datasets. The same commands can be used for training or inference with other datasets. See below for more detail.
 
 Inference using fp16 (half-precision) is also supported.
 
 For more help, type <br />
-    
+
     python main.py --help
 
 ## Usage
 First, install [nvidia-docker](https://github.com/NVIDIA/nvidia-docker). Unfortunately, an NVIDIA GPU is required for this project.
 
-Download the [MPI-Sintel dataset](http://files.is.tue.mpg.de/sintel/MPI-Sintel-complete.zip) and tstore he checkpoints of FlowNet2 [FlowNet2_checkpoint.pth.tar](https://drive.google.com/file/d/1hF8vS6YeHkx3j2pfCeQqqZGwA_PJq_Da/view?usp=sharing) in a directory called `flownet2-checkpoints`. Then, set the paths to the MPI-Sintel dataset and the checkpoints of FlowNet2. The simplest way is by adding these two lines to the `.bashrc` in your home directory:
+Download the [MPI-Sintel dataset](http://files.is.tue.mpg.de/sintel/MPI-Sintel-complete.zip) and store he checkpoints of FlowNet2 [FlowNet2_checkpoint.pth.tar](https://drive.google.com/file/d/1hF8vS6YeHkx3j2pfCeQqqZGwA_PJq_Da/view?usp=sharing) in a directory called `flownet2-checkpoints`. Then, set the paths to the dataset and the checkpoints of FlowNet2. The simplest way is by adding these two lines to the `.bashrc` in your home directory:
 
-    export MPI_SINTEL_DIR="/path/to/datasets/mpi-sintel"
+    export DATASET_DIR="/path/to/image_folder"
     export FLOWNET2_CHECKPOINTS_DIR="/path/to/flownet2-checkpoints"
 
-Now, use the following commands:
+`$DATASET_DIR` does not have to point at the MPI-Sintel dataset, it can be any folder with images in it.
+
+Use the following commands to build the Docker image and launch the container:
 
     git clone https://github.com/evroon/flownet2-pytorch.git
     cd flownet2-pytorch
+    ./build_docker.sh
     ./launch_docker.sh
 
 Now, inside the shell of the new docker container, run:
-    
+
     ./install.sh
     scripts/run.sh
 
-Now the resulting mp4 can be found in: `$MPI_SINTEL_DIR/output/color_coding/output.mp4`.
+Now the resulting mp4 can be found in: `$DATASET_DIR/output/color_coding/output.mp4`.
 
 ## Network architectures
 Below are the different flownet neural network architectures that are provided. <br />
@@ -56,7 +59,7 @@ Dataloaders for FlyingChairs, FlyingThings, ChairsSDHom and ImagesFromFolder are
 
 L1 and L2 losses with multi-scale support are available in [losses.py](./losses.py). <br />
 
-## Installation 
+## Installation
 
     # get flownet2-pytorch source
     git clone https://github.com/NVIDIA/flownet2-pytorch.git
@@ -64,18 +67,18 @@ L1 and L2 losses with multi-scale support are available in [losses.py](./losses.
 
     # install custom layers
     bash install.sh
-    
-### Python requirements 
+
+### Python requirements
 Currently, the code supports python 3
-* numpy 
+* numpy
 * PyTorch ( == 0.4.1, for <= 0.4.0 see branch [python36-PyTorch0.4](https://github.com/NVIDIA/flownet2-pytorch/tree/python36-PyTorch0.4))
-* scipy 
+* scipy
 * scikit-image
 * tensorboardX
-* colorama, tqdm, setproctitle 
+* colorama, tqdm, setproctitle
 
 ## Converted Caffe Pre-trained Models
-We've included caffe pre-trained models. Should you use these pre-trained weights, please adhere to the [license agreements](https://drive.google.com/file/d/1TVv0BnNFh3rpHZvD-easMb9jYrPE2Eqd/view?usp=sharing). 
+We've included caffe pre-trained models. Should you use these pre-trained weights, please adhere to the [license agreements](https://drive.google.com/file/d/1TVv0BnNFh3rpHZvD-easMb9jYrPE2Eqd/view?usp=sharing).
 
 * [FlowNet2](https://drive.google.com/file/d/1hF8vS6YeHkx3j2pfCeQqqZGwA_PJq_Da/view?usp=sharing)[620MB]
 * [FlowNet2-C](https://drive.google.com/file/d/1BFT6b7KgKJC8rA59RmOVAXRM_S7aSfKE/view?usp=sharing)[149MB]
@@ -84,13 +87,13 @@ We've included caffe pre-trained models. Should you use these pre-trained weight
 * [FlowNet2-CSS-ft-sd](https://drive.google.com/file/d/1R5xafCIzJCXc8ia4TGfC65irmTNiMg6u/view?usp=sharing)[445MB]
 * [FlowNet2-S](https://drive.google.com/file/d/1V61dZjFomwlynwlYklJHC-TLfdFom3Lg/view?usp=sharing)[148MB]
 * [FlowNet2-SD](https://drive.google.com/file/d/1QW03eyYG_vD-dT-Mx4wopYvtPu_msTKn/view?usp=sharing)[173MB]
-    
+
 ## Inference
-    # Example on MPISintel Clean   
+    # Example on MPISintel Clean
     python main.py --inference --model FlowNet2 --save_flow --inference_dataset MpiSintelClean \
     --inference_dataset_root /path/to/mpi-sintel/clean/dataset \
-    --resume /path/to/checkpoints 
-    
+    --resume /path/to/checkpoints
+
 ## Training and validation
 
     # Example on MPISintel Final and Clean, with L1Loss on FlowNet2 model
@@ -98,16 +101,16 @@ We've included caffe pre-trained models. Should you use these pre-trained weight
     --training_dataset MpiSintelFinal --training_dataset_root /path/to/mpi-sintel/final/dataset  \
     --validation_dataset MpiSintelClean --validation_dataset_root /path/to/mpi-sintel/clean/dataset
 
-    # Example on MPISintel Final and Clean, with MultiScale loss on FlowNet2C model 
+    # Example on MPISintel Final and Clean, with MultiScale loss on FlowNet2C model
     python main.py --batch_size 8 --model FlowNet2C --optimizer=Adam --optimizer_lr=1e-4 --loss=MultiScale --loss_norm=L1 \
     --loss_numScales=5 --loss_startScale=4 --optimizer_lr=1e-4 --crop_size 384 512 \
     --training_dataset FlyingChairs --training_dataset_root /path/to/flying-chairs/dataset  \
     --validation_dataset MpiSintelClean --validation_dataset_root /path/to/mpi-sintel/clean/dataset
-    
+
 ## Results on MPI-Sintel
 [![Predicted flows on MPI-Sintel](./image.png)](https://www.youtube.com/watch?v=HtBmabY8aeU "Predicted flows on MPI-Sintel")
 
-## Reference 
+## Reference
 If you find this implementation useful in your work, please acknowledge it appropriately and cite the paper:
 ````
 @InProceedings{IMKDB17,
@@ -129,9 +132,9 @@ If you find this implementation useful in your work, please acknowledge it appro
   howpublished = {\url{https://github.com/NVIDIA/flownet2-pytorch}}
 }
 ```
-## Related Optical Flow Work from Nvidia 
+## Related Optical Flow Work from Nvidia
 Code (in Caffe and Pytorch): [PWC-Net](https://github.com/NVlabs/PWC-Net) <br />
-Paper : [PWC-Net: CNNs for Optical Flow Using Pyramid, Warping, and Cost Volume](https://arxiv.org/abs/1709.02371). 
+Paper : [PWC-Net: CNNs for Optical Flow Using Pyramid, Warping, and Cost Volume](https://arxiv.org/abs/1709.02371).
 
 ## Acknowledgments
 Parts of this code were derived, as noted in the code, from [ClementPinard/FlowNetPytorch](https://github.com/ClementPinard/FlowNetPytorch).
