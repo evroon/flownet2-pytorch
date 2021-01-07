@@ -17,7 +17,9 @@ COMMAND="/bin/bash"
 while test $# -gt 0
 do
     case "$1" in
-        --run) COMMAND="scripts/run.sh"
+        --run) COMMAND="./run.sh"
+            ;;
+        --run-convert) COMMAND="./run.sh --convert"
             ;;
         --install) COMMAND="./install.sh"
             ;;
