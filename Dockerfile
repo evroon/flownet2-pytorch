@@ -1,5 +1,6 @@
 FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
 
+ARG DEBIAN_FRONTEND=noninteractive
 
 # basic packages
 RUN apt-get -y update && apt-get -y upgrade && \
