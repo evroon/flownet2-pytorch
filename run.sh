@@ -29,6 +29,6 @@ python3 -m flowiz \
                 -v $OUTPUT_PATH/color_coding/video \
                 -r 30
 
-ffmpeg -i $OUTPUT_PATH/color_coding/%06d.flo.png -c:v libx264 -vf fps=30 -pix_fmt yuv420p $OUTPUT_VIDEO_PATH
+ffmpeg -r 30 -i $OUTPUT_PATH/color_coding/%06d.flo.png -c:v libx264 -yvf fps=30 -pix_fmt yuv420p $OUTPUT_VIDEO_PATH
 
 echo "Wrote output video to:" $OUTPUT_VIDEO_PATH
