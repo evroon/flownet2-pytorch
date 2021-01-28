@@ -1,4 +1,5 @@
 # flownet2-pytorch
+![Docker build](https://github.com/evroon/flownet2-pytorch/workflows/docker-build/badge.svg)
 
 Pytorch implementation of [FlowNet 2.0: Evolution of Optical Flow Estimation with Deep Networks](https://arxiv.org/abs/1612.01925).
 
