@@ -20,4 +20,4 @@ jobs:
       run: ./build_docker.sh
 
     - name: Install
-      run: docker run --rm -ti --volume=$(pwd):/flownet2-pytorch:rw --workdir=/flownet2-pytorch $USER/flownet2:latest ./install.sh
+      run: docker run --rm --volume=$(pwd):/flownet2-pytorch:rw --workdir=/flownet2-pytorch $USER/flownet2:latest ./install.sh
