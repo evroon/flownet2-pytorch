@@ -27,10 +27,10 @@ do
     shift
 done
 
-sudo nvidia-docker run  --rm -ti \
-                        --volume=$(pwd):/flownet2-pytorch:rw \
-                        -v $FLOWNET2_CHECKPOINTS_DIR:/data/flownet2-checkpoints \
-                        -v $DATASET_DIR:/data/frames \
-                        --workdir=/flownet2-pytorch \
-                        --ipc=host $USER/flownet2:latest \
-                        $COMMAND
+docker run  --gpus all --rm -ti \
+            --volume=$(pwd):/flownet2-pytorch:rw \
+            -v $FLOWNET2_CHECKPOINTS_DIR:/data/flownet2-checkpoints \
+            -v $DATASET_DIR:/data/frames \
+            --workdir=/flownet2-pytorch \
+            --ipc=host $USER/flownet2:latest \
+            $COMMAND
