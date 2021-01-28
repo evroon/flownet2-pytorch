@@ -15,20 +15,15 @@ do
     shift
 done
 
-DATASET_PATH=$DATASET_PATH/extracted_images
-
 python3 main.py --inference --model FlowNet2 --save_flow \
                 --inference_dataset $DATASET_TYPE \
                 --inference_dataset_root $DATASET_PATH \
                 --resume $CHECKPOINT_PATH \
                 --save $OUTPUT_PATH
 
-python3 -m flowiz \
-                $OUTPUT_PATH/inference/run.epoch-0-flow-field/*.flo \
-                -o $OUTPUT_PATH/color_coding \
-                -v $OUTPUT_PATH/color_coding/video \
-                -r 30
+mkdir -p $OUTPUT_PATH/color_coding
+python3.6 flo_to_color.py "$OUTPUT_PATH/inference/run.epoch-0-flow-field/*.flo" "$OUTPUT_PATH/color_coding"
 
-ffmpeg -r 30 -i $OUTPUT_PATH/color_coding/%06d.flo.png -c:v libx264 -yvf fps=30 -pix_fmt yuv420p $OUTPUT_VIDEO_PATH
+ffmpeg -r 30 -i $OUTPUT_PATH/color_coding/%06d.png -c:v libx264 -vf fps=30 -pix_fmt yuv420p $OUTPUT_VIDEO_PATH -y
 
 echo "Wrote output video to:" $OUTPUT_VIDEO_PATH

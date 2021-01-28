@@ -5,3 +5,12 @@ _ext
 work
 work/*
 _ext/
+networks/channelnorm_package/channelnorm_cuda.egg-info
+networks/channelnorm_package/build/lib.linux-x86_64-3.5/channelnorm_cuda.cpython-35m-x86_64-linux-gnu.so
+networks/channelnorm_package/dist/channelnorm_cuda-0.0.0-py3.5-linux-x86_64.egg
+networks/correlation_package/correlation_cuda.egg-info
+networks/correlation_package/build/lib.linux-x86_64-3.5/correlation_cuda.cpython-35m-x86_64-linux-gnu.so
+networks/correlation_package/dist/correlation_cuda-0.0.0-py3.5-linux-x86_64.egg
+networks/resample2d_package/resample2d_cuda.egg-info
+networks/resample2d_package/build/lib.linux-x86_64-3.5/resample2d_cuda.cpython-35m-x86_64-linux-gnu.so
+networks/resample2d_package/dist/resample2d_cuda-0.0.0-py3.5-linux-x86_64.egg
