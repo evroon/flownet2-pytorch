@@ -26,14 +26,9 @@ Use the following commands to build the Docker image and launch the container:
     git clone https://github.com/evroon/flownet2-pytorch.git
     cd flownet2-pytorch
     ./build_docker.sh
-    ./launch_docker.sh
+    ./launch_docker.sh --run
 
-Now, inside the shell of the new docker container, run:
-
-    ./install.sh
-    scripts/run.sh
-
-Now the resulting mp4 can be found in: `$DATASET_DIR/output/color_coding/output.mp4`.
+Now the resulting mp4 can be found in: `$DATASET_DIR/output/output.mp4`.
 
 ## Network architectures
 Below are the different flownet neural network architectures that are provided. <br />
