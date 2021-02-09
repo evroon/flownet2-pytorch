@@ -29,3 +29,7 @@ RUN wget https://bootstrap.pypa.io/2.7/get-pip.py && python3 get-pip.py && \
         pip3 install https://download.pytorch.org/whl/cu90/torch-1.0.0-cp35-cp35m-linux_x86_64.whl
 
 RUN wget https://bootstrap.pypa.io/get-pip.py && python3.6 get-pip.py && python3.6 -m pip install flow_vis opencv-python
+
+# Build networks.
+COPY networks /flownet2-pytorch/networks
+RUN cd /flownet2-pytorch/networks && ./install.sh
