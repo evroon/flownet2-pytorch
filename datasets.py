@@ -334,6 +334,9 @@ class ImagesFromFolder(data.Dataset):
 
     self.size = len(self.image_list)
 
+    if self.size < 1:
+        raise ValueError('No images found in: ' + root)
+
     self.frame_size = frame_utils.read_gen(self.image_list[0][0]).shape
 
     if (self.render_size[0] < 0) or (self.render_size[1] < 0) or (self.frame_size[0]%64) or (self.frame_size[1]%64):
@@ -355,7 +358,7 @@ class ImagesFromFolder(data.Dataset):
     else:
         cropper = StaticCenterCrop(image_size, self.render_size)
     images = list(map(cropper, images))
-    
+
     images = np.array(images).transpose(3,0,1,2)
     images = torch.from_numpy(images.astype(np.float32))
 
