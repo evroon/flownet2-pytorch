@@ -10,11 +10,11 @@ do
             ;;
         --run-convert) COMMAND="./run.sh --convert"
             ;;
-		--dataset)
-			dataset_dir="$2"
+        --dataset)
+            dataset_dir="$2"
             echo $dataset_dir
-			shift
-			;;
+            shift
+            ;;
     esac
     shift
 done
