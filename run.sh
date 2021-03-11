@@ -21,9 +21,11 @@ python3 main.py --inference --model FlowNet2 --save_flow \
                 --resume $CHECKPOINT_PATH \
                 --save $OUTPUT_PATH
 
+echo 'Converting .flo files to RGB images...'
 mkdir -p $OUTPUT_PATH/color_coding
 python3.6 flo_to_color.py "$OUTPUT_PATH/inference/run.epoch-0-flow-field/*.flo" "$OUTPUT_PATH/color_coding"
 
+echo 'Building video from flow frames...'
 ffmpeg -r 30 -i $OUTPUT_PATH/color_coding/%06d.png -c:v libx264 -vf fps=30 -pix_fmt yuv420p $OUTPUT_VIDEO_PATH -y
 
 echo "Wrote output video to:" $OUTPUT_VIDEO_PATH

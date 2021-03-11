@@ -1,4 +1,5 @@
 #!/bin/bash
+cd "$(dirname "$0")"
 
 COMMAND="/bin/bash"
 dataset_dir=${DATASET_DIR}
