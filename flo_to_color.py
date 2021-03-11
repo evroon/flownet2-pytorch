@@ -28,6 +28,7 @@ args = parser.parse_args()
 input = args.input
 output = args.output
 images = glob.glob(input)
+images.sort()
 
 for i, img_path in enumerate(images):
     name = os.path.basename(img_path)
